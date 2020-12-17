@@ -19,3 +19,9 @@ makeTriple x y z = (x, y, z)
 --Q11.1
 -- filter type signature (a->bool) -> [a] -> [a]
 
+--Q11.2 cannot because head :: a and tail :: [a]
+
+--Q11.3
+-- type class is myFoldl :: (b-> a -> b) -> b -> [a] -> b
+-- specifically for a list not a generic container
+

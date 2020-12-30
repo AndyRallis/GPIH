@@ -127,9 +127,10 @@ type InfiniteString = String
 
 data StreamCipher = Generator GeneratorFunction Seed
 
-makePRNGPad :: GeneratorFunction -> Seed -> InfiniteString
-makePRNGPad f seed = let n = f seed
-                      in toEnum n : makePRNGPad f n
+makePRNGPad :: StreamCipher -> InfiniteString
+makePRNGPad (Generator f seed) = let n = f seed
+                                     newCipher = Generator f n
+                                  in toEnum n : makePRNGPad newCipher
 
 instance Cipher StreamCipher where
   encode (Generator f seed) text = applyOTP (makePRNGPad f seed) text

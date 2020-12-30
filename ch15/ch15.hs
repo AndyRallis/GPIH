@@ -121,9 +121,13 @@ myOTP = OTP (cycle [minBound .. maxBound])
 prng :: Int -> Int -> Int -> Int -> Int
 prng a b maxNumber seed = (a*seed + b) `mod` maxNumber
 
-data StreamCipher = Generator (Int -> Int) Int
+type GeneratorFunction = (Int -> Int)
+type Seed = Int
+type InfiniteString = String
 
-makePRNGPad :: (Int-> Int) -> Int -> String
+data StreamCipher = Generator GeneratorFunction Seed
+
+makePRNGPad :: GeneratorFunction -> Seed -> InfiniteString
 makePRNGPad f seed = let n = f seed
                       in toEnum n : makePRNGPad f n
 

@@ -133,8 +133,8 @@ makePRNGPad (Generator f seed) = let n = f seed
                                   in toEnum n : makePRNGPad newCipher
 
 instance Cipher StreamCipher where
-  encode (Generator f seed) text = applyOTP (makePRNGPad f seed) text
-  decode (Generator f seed) text = applyOTP (makePRNGPad f seed) text
+  encode streamCipher text = applyOTP (makePRNGPad streamCipher) text
+  decode streamCipher text = applyOTP (makePRNGPad streamCipher) text
 
 myGen :: StreamCipher
 myGen = Generator (prng 1337 7 100) 1235
